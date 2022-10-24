@@ -21,6 +21,7 @@ pub(in crate) mod tables{
         pub const ETW_K: &'static str = "QWERTZUIOASDFGHJKPYXCVBNML";
     }
 
+    // https://www.codesandciphers.org.uk/enigma/rotorspec.htm
     pub(in crate) mod technical {
         pub const I: &'static str     = "EKMFLGDQVZNTOWYHXUSPAIBRCJ";
         pub const II: &'static str    = "AJDKSIRUXBLHWTMCQGZNPYFVOE";
