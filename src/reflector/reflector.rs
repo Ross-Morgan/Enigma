@@ -28,7 +28,5 @@ impl Reflector {
 }
 
 pub fn load_reflector_preset(preset: &'static str) -> Reflector {
-    let c = CycleNotation::from_string(preset);
-
-    return Reflector::from_cycle_notation(c);
+    Reflector::from_cycle_notation(CycleNotation::from_string(preset))
 }
