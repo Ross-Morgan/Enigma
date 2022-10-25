@@ -38,12 +38,44 @@ pub(in crate) mod tables{
 
 pub mod groups {
     use super::tables::{
-        commercial::*,
-        rocket::*,
-        swiss_k::*
+        commercial,
+        rocket,
+        swiss_k,
+        technical
     };
 
-    pub const COMMERCIAL: [&'static str; 3] = [IC, IIC, IIIC];
-    pub const ROCKET: [&'static str; 5] = [I, II, III, UKW, ETW];
-    pub const SWISS_K: [&'static str; 5] = [I_K, II_K, III_K, UWK_K, ETW_K];
+    pub const COMMERCIAL: [&'static str; 3] = [
+        commercial::IC,
+        commercial::IIC,
+        commercial::IIIC,
+    ];
+
+    pub const ROCKET: [&'static str; 5] = [
+        rocket::I,
+        rocket::II,
+        rocket::III,
+        rocket::UKW,
+        rocket::ETW,
+    ];
+
+    pub const SWISS_K: [&'static str; 5] = [
+        swiss_k::I_K,
+        swiss_k::II_K,
+        swiss_k::III_K,
+        swiss_k::UWK_K,
+        swiss_k::ETW_K,
+    ];
+
+    pub const TECHNICAL: [&'static str; 10] = [
+        technical::I,
+        technical::II,
+        technical::III,
+        technical::IV,
+        technical::V,
+        technical::VI,
+        technical::VII,
+        technical::VIII,
+        technical::BETA,
+        technical::GAMMA,
+    ];
 }

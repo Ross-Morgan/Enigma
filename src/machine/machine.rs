@@ -2,34 +2,44 @@ use crate::plugboard::Plugboard;
 use crate::reflector::Reflector;
 
 use crate::rotors::{Rotor, load_rotor_preset};
-use crate::rotors::tables::groups;
+use crate::rotors::presets::groups;
 
-pub struct EngimaBuilder<const N: usize = 3> {
+pub struct EngimaBuilder<const N: usize> {
     _plugboard: Option<Plugboard>,
     _rotors: Option<Vec<Rotor>>,
     _reflector: Option<Reflector>,
 }
 
-impl EngimaBuilder {
-    pub fn plugboard(&mut self, plugboard: Plugboard) {
+impl<const N: usize> EngimaBuilder<N> {
+    pub fn new() -> Self {
+        Self { _plugboard: None, _rotors: None, _reflector: None }
+    }
+
+    pub fn plugboard(&mut self, plugboard: Plugboard) -> &mut Self {
         self._plugboard = Some(plugboard);
+
+        self
     }
 
-    pub fn reflector(&mut self, reflector: Reflector) {
+    pub fn reflector(&mut self, reflector: Reflector) -> &mut Self {
         self._reflector = Some(reflector);
+
+        self
     }
 
-    pub fn rotors(&mut self, rotors: Vec<Rotor>) {
+    pub fn rotors(&mut self, rotors: Vec<Rotor>) -> &mut Self {
         self._rotors = Some(rotors);
+
+        self
     }
 
-    pub fn build(self) -> EnigmaMachine {
+    pub fn build(&self) -> EnigmaMachine<N> {
         let plugboard = self._plugboard.expect("Tried to build with no plugboard");
         let reflector = self._reflector.expect("Tried to build with no reflector");
 
-        let rotors = self._rotors.expect("Tried to build with no rotors");
+        let rotors = self._rotors.clone().expect("Tried to build with no rotors");
 
-        EnigmaMachine { plugboard, rotors, reflector }
+        EnigmaMachine::<N>::from_parts(plugboard, rotors, reflector)
     }
 }
 
@@ -43,6 +53,10 @@ pub struct EnigmaMachine<const N: usize = 3> {
 
 
 impl<const N: usize> EnigmaMachine<N> {
+    pub fn from_parts(plugboard: Plugboard, rotors: Vec<Rotor>, reflector: Reflector) -> Self {
+        Self { plugboard, rotors, reflector }
+    }
+
     pub fn from_preset(preset: [&'static str; N]) -> Self {
         let plugboard: Plugboard = Plugboard::new();
         let reflector: Reflector = Reflector::new();
@@ -51,8 +65,8 @@ impl<const N: usize> EnigmaMachine<N> {
         Self { plugboard, rotors, reflector }
     }
 
-    pub fn build_with(self) -> EngimaBuilder {
-        EngimaBuilder { _plugboard: None, _rotors: None, _reflector: None }
+    pub fn build_with() -> EngimaBuilder<N> {
+        EngimaBuilder::new()
     }
 }
 
@@ -65,5 +79,11 @@ impl EnigmaMachine<3> {
 impl EnigmaMachine<5> {
     pub fn new() -> Self {
         Self::from_preset(groups::ROCKET)
+    }
+}
+
+impl EnigmaMachine<10> {
+    pub fn new() -> Self {
+        Self::from_preset(groups::TECHNICAL)
     }
 }

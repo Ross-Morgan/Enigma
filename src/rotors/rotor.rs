@@ -5,28 +5,38 @@ const ALPHABET: &'static str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 #[derive(Debug, Clone)]
 pub struct Rotor {
-    mapping: String
+    mapping: Vec<char>
 }
 
 impl Rotor {
     pub fn from(preset_str: &'static str) -> Self {
         Self {
-            mapping: preset_str.to_string()
+            mapping: preset_str.chars().collect::<Vec<char>>()
         }
     }
 
     pub fn advance(&mut self) {
-        let mut to: Vec<u8> = self.mapping.as_bytes().to_owned();
-        let mut last: Vec<u8> = Vec::with_capacity(1);
+        println!("Original rotor: {:?}", self.mapping);
 
+        let mut to: Vec<char> = self.mapping.clone();
+        let mut last: Vec<char> = Vec::with_capacity(1);
+
+        // Reverse order of mapping
         to.reverse();
 
+        // Move last element to new vector
         last.push(to.pop().expect("Rotor character set was empty"));
 
+        // Add rest of vector to last element
         last.append(&mut to);
+
+        // Reverse to get original order
         last.reverse();
 
-        let new_mapping: String = str::from_utf8(last.as_slice()).expect("Could not decode mapping").to_string();
+        // REVIEW ?
+        let new_mapping: Vec<char> = last;
+
+        println!("Advanced rotor: {:?}", new_mapping);
 
         self.mapping = new_mapping;
     }
