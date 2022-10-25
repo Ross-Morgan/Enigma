@@ -1,9 +1,5 @@
-#[derive(Copy, Clone, Debug)]
-pub struct Reflector{}
+mod reflector;
 
+pub mod presets;
 
-impl Reflector {
-    pub fn new() -> Self {
-        Self {}
-    }
-}
+pub use reflector::{Reflector, load_reflector_preset};

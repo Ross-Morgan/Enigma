@@ -34,8 +34,8 @@ impl<const N: usize> EngimaBuilder<N> {
     }
 
     pub fn build(&self) -> EnigmaMachine<N> {
-        let plugboard = self._plugboard.expect("Tried to build with no plugboard");
-        let reflector = self._reflector.expect("Tried to build with no reflector");
+        let plugboard = self._plugboard.clone().expect("Tried to build with no plugboard");
+        let reflector = self._reflector.clone().expect("Tried to build with no reflector");
 
         let rotors = self._rotors.clone().expect("Tried to build with no rotors");
 

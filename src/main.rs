@@ -1,5 +1,7 @@
 use enigma::prelude::*;
 
+use enigma::cycle_notation;
+
 
 fn main() {
     let plugboard = Plugboard::new();
