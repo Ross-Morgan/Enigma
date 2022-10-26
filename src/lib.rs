@@ -10,6 +10,7 @@ pub mod prelude {
     use super::*;
 
     pub use machine::EnigmaMachine;
+    pub use machine::encrypt::Encrypt;
     pub use plugboard::Plugboard;
 
     pub use reflector::Reflector;
