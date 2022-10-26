@@ -1,35 +1,20 @@
+use std::collections::HashMap;
+
 use crate::cycle_notation::CycleNotation;
 
 #[derive(Clone, Debug)]
-pub struct Reflector{
-    mappings: Vec<(char, char)>
+pub struct Reflector {
+    mappings: HashMap<char, char>
 }
 
 
 impl Reflector {
     pub fn new() -> Self {
-        Self { mappings: vec![] }
+        Self { mappings: HashMap::new() }
     }
 
     pub fn from_cycle_notation(notation: CycleNotation) -> Self {
-        let mut m = Vec::<(char, char)>::new();
-
-        // Loops through groups
-        for v in notation.mappings {
-
-            if v.len() != 2 {
-                panic!("");
-            }
-
-            m.push((
-                *v.iter().nth(0).unwrap(),
-                *v.iter().nth(1).unwrap(),
-            ))
-        }
-
-        Self {
-            mappings: m
-        }
+        Self { mappings: notation.mappings }
     }
 
     pub fn from_reflector_preset(preset: &'static str) -> Self {
@@ -40,6 +25,6 @@ impl Reflector {
 
 impl Reflector {
     pub fn plug(&self, c: char) -> char {
-        c
+        *self.mappings.get(&c).expect("Character not in reflector mappings")
     }
 }
