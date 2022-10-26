@@ -12,7 +12,7 @@ pub mod prelude {
     pub use machine::EnigmaMachine;
     pub use plugboard::Plugboard;
 
-    pub use reflector::{Reflector, load_reflector_preset};
+    pub use reflector::Reflector;
     pub use reflector::presets as reflector_presets;
 
     pub use rotors::{Rotor, RotorStack};
