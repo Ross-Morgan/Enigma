@@ -1,10 +1,15 @@
+use std::collections::HashMap;
+
+#[derive(PartialEq)]
 pub struct CycleNotation {
-    pub mappings: Vec<Vec<char>>
+    pub mappings: HashMap<char, char>
 }
+
 
 impl CycleNotation {
     pub fn from_string(s: &'static str) -> Self {
         let mut mappings: Vec<Vec<char>> = vec![];
+        let mut normalised_mappings: HashMap<char, char> = HashMap::new();
 
         let mut chars = s.chars();
 
@@ -16,11 +21,20 @@ impl CycleNotation {
 
         for group in split {
             mappings.push(group.chars().collect::<Vec<char>>());
+        }
 
+        for group in mappings {
+            for (idx, c) in group.iter().enumerate() {
+                if idx == group.len() - 1 {
+                    normalised_mappings.insert(*c, group[0]);
+                } else {
+                    normalised_mappings.insert(*c, group[idx + 1]);
+                }
+            }
         }
 
         Self {
-            mappings: vec![]
+            mappings: normalised_mappings
         }
     }
 }
@@ -36,9 +50,10 @@ impl ToString for CycleNotation {
     fn to_string(&self) -> String {
         let mut buf: String = String::new();
 
-        for v in self.mappings.iter() {
+        for (c, v) in self.mappings.iter() {
             buf.push('(');
-            buf.push_str(v.into_iter().collect::<String>().to_uppercase().as_str());
+            buf.push(c.to_ascii_uppercase());
+            buf.push(v.to_ascii_uppercase());
             buf.push(')');
             buf.push(' ');
         }
