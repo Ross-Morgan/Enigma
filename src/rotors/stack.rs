@@ -11,7 +11,7 @@ impl<const N: usize> RotorStack<N> {
         let mut rotors: Vec<Rotor> = vec![];
 
         for (name, spec) in preset.into_iter() {
-            rotors.push(Rotor::from(spec, Some(name)))
+            rotors.push(Rotor::from_preset(spec, Some(name)))
         }
 
         Self {
@@ -41,9 +41,17 @@ impl RotorStack<10> {
 
 
 impl<const N: usize> RotorStack<N> {
-    pub fn plug_forwards(&self, c: char) -> char {
+    pub fn plug_forwards(&mut self, c: char) -> char {
         // TODO Implement
-        c
+        let mut plugged = c;
+
+        for rotor in self.rotors.iter_mut() {
+            plugged = rotor.plug(plugged);
+
+            rotor.rotate();
+        }
+
+        plugged
     }
 
     pub fn plug_backwards(&self, c: char) -> char {
