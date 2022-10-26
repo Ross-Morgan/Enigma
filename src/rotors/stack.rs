@@ -1,4 +1,5 @@
 use crate::rotors::Rotor;
+use crate::rotors::presets::groups;
 
 #[derive(Clone, Debug)]
 pub struct RotorStack<const N: usize> {
@@ -16,5 +17,24 @@ impl<const N: usize> RotorStack<N> {
         Self {
             rotors
         }
+    }
+}
+
+
+impl RotorStack<3> {
+    pub fn new() -> Self {
+        Self::from_preset(groups::COMMERCIAL)
+    }
+}
+
+impl RotorStack<5> {
+    pub fn new() -> Self {
+        Self::from_preset(groups::ROCKET)
+    }
+}
+
+impl RotorStack<10> {
+    pub fn new() -> Self {
+        Self::from_preset(groups::TECHNICAL)
     }
 }
