@@ -1,5 +1,7 @@
 mod rotor;
+mod stack;
 
 pub mod presets;
 
-pub use rotor::{Rotor, load_rotor_preset};
+pub use rotor::{Rotor};
+pub use stack::{RotorStack};

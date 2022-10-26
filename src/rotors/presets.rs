@@ -1,7 +1,9 @@
+//(A)(B)(C)(D)(E)(F)(G)(H)(I)(J)(K)(L)(M)(N)(O)(P)(Q)(R)(S)(T)(U)(V)(W)(X)(Y)(Z)
+
 pub(in crate) mod commercial {
-    pub const IC: &'static str   = "DMTWSILRUYQNKFEJCAZBPGXHOV";
-    pub const IIC: &'static str  = "HQZGPJTMOBLNCIFDYAWVEUSRKX";
-    pub const IIIC: &'static str = "UQNTLSZFMREHDPXKIBVYGJCWOA";
+    pub const IC: &'static str   = "(AD)(BM)(CT)(DW)(ES)(FI)(GL)(HR)(IU)(JY)(KQ)(LN)(MK)(NF)(OE)(PJ)(QC)(RA)(SZ)(TB)(UP)(VG)(WX)(XO)(YH)(ZV)";
+    pub const IIC: &'static str  = "(AH)(BQ)(CZ)(DG)(EP)(FJ)(GT)(HM)(IO)(JB)(KL)(LN)(MC)(NI)(OF)(PD)(QY)(RA)(SW)(TV)(UE)(VU)(WS)(XR)(YK)(ZX)";
+    pub const IIIC: &'static str = "(AU)(BQ)(CN)(DT)(EL)(F)(G)(H)(I)(J)(K)(L)(M)(N)(O)(P)(Q)(R)(S)(T)(U)(V)(W)(XW)(YO)(ZA)";
     }
 
 pub(in crate) mod rocket {
@@ -43,38 +45,38 @@ pub mod groups {
         technical
     };
 
-    pub const COMMERCIAL: [&'static str; 3] = [
-        commercial::IC,
-        commercial::IIC,
-        commercial::IIIC,
+    pub const COMMERCIAL: [(&'static str, &'static str); 3] = [
+        ("IC", commercial::IC),
+        ("IIC", commercial::IIC),
+        ("IIIC", commercial::IIIC),
     ];
 
-    pub const ROCKET: [&'static str; 5] = [
-        rocket::I,
-        rocket::II,
-        rocket::III,
-        rocket::UKW,
-        rocket::ETW,
+    pub const ROCKET: [(&'static str, &'static str); 5] = [
+        ("I", rocket::I),
+        ("II", rocket::II),
+        ("III", rocket::III),
+        ("UKW", rocket::UKW),
+        ("ETW", rocket::ETW),
     ];
 
-    pub const SWISS_K: [&'static str; 5] = [
-        swiss_k::I_K,
-        swiss_k::II_K,
-        swiss_k::III_K,
-        swiss_k::UWK_K,
-        swiss_k::ETW_K,
+    pub const SWISS_K: [(&'static str, &'static str); 5] = [
+        ("I_K", swiss_k::I_K),
+        ("II_K", swiss_k::II_K),
+        ("III_K", swiss_k::III_K),
+        ("UWK_K", swiss_k::UWK_K),
+        ("ETW_K", swiss_k::ETW_K),
     ];
 
-    pub const TECHNICAL: [&'static str; 10] = [
-        technical::I,
-        technical::II,
-        technical::III,
-        technical::IV,
-        technical::V,
-        technical::VI,
-        technical::VII,
-        technical::VIII,
-        technical::BETA,
-        technical::GAMMA,
+    pub const TECHNICAL: [(&'static str, &'static str); 10] = [
+        ("I", technical::I),
+        ("II", technical::II),
+        ("III", technical::III),
+        ("IV", technical::IV),
+        ("V", technical::V),
+        ("VI", technical::VI),
+        ("VII", technical::VII),
+        ("VIII", technical::VIII),
+        ("BETA", technical::BETA),
+        ("GAMMA", technical::GAMMA),
     ];
 }

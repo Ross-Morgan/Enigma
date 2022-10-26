@@ -5,13 +5,15 @@ const ALPHABET: &'static str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 #[derive(Debug, Clone)]
 pub struct Rotor {
-    mapping: Vec<char>
+    mapping: Vec<char>,
+    pub name: Option<&'static str>,
 }
 
 impl Rotor {
-    pub fn from(preset_str: &'static str) -> Self {
+    pub fn from(spec: &'static str, name: Option<&'static str>) -> Self {
         Self {
-            mapping: preset_str.chars().collect::<Vec<char>>()
+            mapping: spec.chars().collect::<Vec<char>>(),
+            name
         }
     }
 
@@ -46,15 +48,4 @@ impl Rotor {
 
         ALPHABET.chars().nth(position).expect("Letter not in rotor's charset")
     }
-}
-
-
-pub fn load_rotor_preset<const N: usize>(rotor_preset: [&'static str; N]) -> Vec<Rotor> {
-    let mut rotor_vec: Vec<Rotor> = Vec::with_capacity(N);
-
-    for rotor_string in rotor_preset.into_iter() {
-        rotor_vec.push(Rotor::from(rotor_string));
-    }
-
-    rotor_vec
 }
