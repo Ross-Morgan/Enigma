@@ -48,25 +48,3 @@ impl ToString for CycleNotation {
         buf
     }
 }
-
-
-#[cfg(test)]
-mod tests {
-    use super::CycleNotation;
-
-    #[test]
-    fn cycle_notation_output() {
-        let c = CycleNotation {
-            mappings: vec![
-                vec!['a', 'b'],
-                vec!['c', 'd'],
-                vec!['d', 'e'],
-                vec!['e', 'f'],
-            ]
-        };
-
-        println!("{}", c.to_string());
-
-        assert!(true);
-    }
-}
