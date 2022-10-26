@@ -3,7 +3,7 @@ use crate::rotors::presets::groups;
 
 #[derive(Clone, Debug)]
 pub struct RotorStack<const N: usize> {
-    rotors: Vec<Rotor>
+    pub(in super) rotors: Vec<Rotor>
 }
 
 impl<const N: usize> RotorStack<N> {
