@@ -37,3 +37,9 @@ impl Reflector {
     }
 }
 
+
+impl Reflector {
+    pub fn plug(&self, c: char) -> char {
+        c
+    }
+}
