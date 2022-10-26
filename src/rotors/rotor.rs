@@ -35,12 +35,9 @@ impl Rotor {
         // Reverse to get original order
         last.reverse();
 
-        // REVIEW ?
-        let new_mapping: Vec<char> = last;
+        println!("Advanced rotor: {:?}", last);
 
-        println!("Advanced rotor: {:?}", new_mapping);
-
-        self.mapping = new_mapping;
+        self.mapping = last;
     }
 
     pub fn map(&self, letter: char) -> char {
