@@ -1,15 +1,3 @@
-#[derive(Copy, Clone, Debug)]
-pub struct Plugboard{}
+mod plugboard;
 
-
-impl Plugboard {
-    pub fn new() -> Self {
-        Self {}
-    }
-}
-
-impl Plugboard {
-    pub fn plug(&self, c: char) -> char {
-        c
-    }
-}
+pub use plugboard::Plugboard;
