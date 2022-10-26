@@ -45,15 +45,15 @@ impl<const R: usize> EngimaBuilder<R> {
 
 #[derive(Clone, Debug)]
 pub struct EnigmaMachine<const R: usize = 3> {
-    plugboard: Plugboard,
-    rotors: RotorStack<R>,
-    reflector: Reflector,
+    pub(in super) plugboard: Plugboard,
+    pub(in super) rotor_stack: RotorStack<R>,
+    pub(in super) reflector: Reflector,
 }
 
 
 impl<const N: usize> EnigmaMachine<N> {
     pub fn from_parts(plugboard: Plugboard, rotors: RotorStack<N>, reflector: Reflector) -> Self {
-        Self { plugboard, rotors, reflector }
+        Self { plugboard, rotor_stack: rotors, reflector }
     }
 
     pub fn from_preset(preset: [(&'static str, &'static str); N]) -> Self {
@@ -61,7 +61,7 @@ impl<const N: usize> EnigmaMachine<N> {
         let reflector: Reflector = Reflector::new();
         let rotors: RotorStack<N> = RotorStack::<N>::from_preset(preset);
 
-        Self { plugboard, rotors, reflector }
+        Self { plugboard, rotor_stack: rotors, reflector }
     }
 
     pub fn build_with() -> EngimaBuilder<N> {
