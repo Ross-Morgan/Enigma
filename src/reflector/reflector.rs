@@ -31,9 +31,9 @@ impl Reflector {
             mappings: m
         }
     }
+
+    pub fn from_reflector_preset(preset: &'static str) -> Self {
+        Self::from_cycle_notation(CycleNotation::from_string(preset))
+    }
 }
 
-/// Create reflector struct from a string
-pub fn load_reflector_preset(preset: &'static str) -> Reflector {
-    Reflector::from_cycle_notation(CycleNotation::from_string(preset))
-}
