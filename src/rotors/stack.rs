@@ -38,3 +38,16 @@ impl RotorStack<10> {
         Self::from_preset(groups::TECHNICAL)
     }
 }
+
+
+impl<const N: usize> RotorStack<N> {
+    pub fn plug_forwards(&self, c: char) -> char {
+        // TODO Implement
+        c
+    }
+
+    pub fn plug_backwards(&self, c: char) -> char {
+        // TODO Implement
+        c
+    }
+}
