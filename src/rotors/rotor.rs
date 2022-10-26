@@ -5,7 +5,7 @@ const ALPHABET: &'static str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 #[derive(Debug, Clone)]
 pub struct Rotor {
-    mapping: Vec<char>,
+    pub(in super) mapping: Vec<char>,
     pub name: Option<&'static str>,
 }
 
