@@ -7,9 +7,9 @@ const ALPHABET: &[u8] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".as_bytes();
 
 #[derive(Debug, Clone)]
 pub struct Rotor {
-    pub(in super) mapping: Vec<char>,
-    pub(in super) start_char: char,
-    pub(in super) offset: usize,
+    pub mapping: Vec<char>,
+    pub start_char: char,
+    pub offset: usize,
     pub name: Option<&'static str>,
 }
 

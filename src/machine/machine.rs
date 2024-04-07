@@ -4,41 +4,42 @@ use crate::rotors::RotorStack;
 
 
 pub struct EngimaBuilder<const N: usize> {
-    _plugboard: Option<Plugboard>,
-    _rotors: Option<RotorStack<N>>,
-    _reflector: Option<Reflector>,
+    plugboard: Option<Plugboard>,
+    rotors: Option<RotorStack<N>>,
+    reflector: Option<Reflector>,
 }
 
 impl<const R: usize> EngimaBuilder<R> {
     pub fn new() -> Self {
-        Self { _plugboard: None, _rotors: None, _reflector: None }
+        Self { plugboard: None, rotors: None, reflector: None }
     }
 
-    pub fn plugboard(&mut self, plugboard: Plugboard) -> &mut Self {
-        self._plugboard = Some(plugboard);
-
+    #[must_use]
+    pub fn with_plugboard(mut self, plugboard: Plugboard) -> Self {
+        self.plugboard = Some(plugboard);
         self
     }
 
-    pub fn reflector(&mut self, reflector: Reflector) -> &mut Self {
-        self._reflector = Some(reflector);
-
+    #[must_use]
+    pub fn with_reflector(mut self, reflector: Reflector) -> Self {
+        self.reflector = Some(reflector);
         self
     }
 
-    pub fn rotors(&mut self, rotors: RotorStack<R>) -> &mut Self {
-        self._rotors = Some(rotors);
-
+    #[must_use]
+    pub fn with_rotors(mut self, rotors: RotorStack<R>) -> Self {
+        self.rotors = Some(rotors);
         self
     }
 
-    pub fn build(&self) -> EnigmaMachine<R> {
-        let plugboard = self._plugboard.clone().expect("Tried to build with no plugboard");
-        let reflector = self._reflector.clone().expect("Tried to build with no reflector");
+    #[must_use]
+    pub fn build(self) -> EnigmaMachine<R> {
+        let plugboard = self.plugboard.expect("Tried to build with no plugboard");
+        let reflector = self.reflector.expect("Tried to build with no reflector");
 
-        let rotors = self._rotors.clone().expect("Tried to build with no rotors");
+        let rotors = self.rotors.expect("Tried to build with no rotors");
 
-        EnigmaMachine::<R>::from_parts(plugboard, rotors, reflector)
+        EnigmaMachine::from_parts(plugboard, rotors, reflector)
     }
 }
 

@@ -7,9 +7,9 @@ fn main() {
     let rotors = RotorStack::from_preset(rotor_presets::TECHNICAL);
 
     let mut machine: EnigmaMachine<10> = EnigmaMachine::<10>::build_with()
-        .plugboard(plugboard)
-        .reflector(reflector)
-        .rotors(rotors)
+        .with_plugboard(plugboard)
+        .with_reflector(reflector)
+        .with_rotors(rotors)
         .build();
 
     println!("{machine:#?}");
