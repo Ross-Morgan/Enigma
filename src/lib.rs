@@ -10,7 +10,7 @@ pub mod cycle_notation;
 pub mod types;
 
 pub mod prelude {
-    use super::*;
+    use super::{machine, plugboard, reflector, rotors};
 
     pub use machine::EnigmaMachine;
     pub use machine::encrypt::Encrypt;

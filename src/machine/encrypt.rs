@@ -27,7 +27,7 @@ impl<const R: usize> Encrypt for EnigmaMachine<R> {
             // Message through plugboard
             c = self.plugboard.plug(c);
 
-            encrypted.push(c)
+            encrypted.push(c);
         }
 
         encrypted

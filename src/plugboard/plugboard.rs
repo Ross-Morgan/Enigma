@@ -8,18 +8,24 @@ pub struct Plugboard {
 }
 
 
+impl Default for Plugboard {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl Plugboard {
-    pub fn new() -> Self {
+    #[must_use] pub fn new() -> Self {
         Self { mappings: HashMap::new() }
     }
 
-    pub fn from_cycle_notation(notation: CycleNotation) -> Self {
+    #[must_use] pub fn from_cycle_notation(notation: CycleNotation) -> Self {
         Self { mappings: notation.mappings }
     }
 }
 
 impl Plugboard {
-    pub fn plug(&self, c: char) -> char {
+    #[must_use] pub fn plug(&self, c: char) -> char {
         *self.mappings.get(&c).expect("Character not in plugboard mappings")
     }
 }

@@ -14,7 +14,7 @@ pub struct Rotor {
 }
 
 impl Rotor {
-    pub fn from_cycle_notation(notation: CycleNotation, name: Option<&'static str>) -> Self {
+    #[must_use] pub fn from_cycle_notation(notation: CycleNotation, name: Option<&'static str>) -> Self {
         Self {
             mapping: notation.mappings.clone().into_values().collect(),
             start_char: notation.mappings.clone().into_values().nth(0).unwrap(),
@@ -23,7 +23,7 @@ impl Rotor {
         }
     }
 
-    pub fn from_preset(spec: &'static str, name: Option<&'static str>) -> Self {
+    #[must_use] pub fn from_preset(spec: &'static str, name: Option<&'static str>) -> Self {
         Self::from_cycle_notation(CycleNotation::from_string(spec), name)
     }
 }
@@ -48,7 +48,7 @@ impl Rotor {
         // Reverse to get original order
         last.reverse();
 
-        println!("Advanced rotor: {:?}", last);
+        println!("Advanced rotor: {last:?}");
 
         self.mapping = last;
     }

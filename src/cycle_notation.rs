@@ -7,12 +7,12 @@ pub struct CycleNotation {
 
 
 impl CycleNotation {
-    pub fn from_string(s: &str) -> Self {
+    #[must_use] pub fn from_string(s: &str) -> Self {
         let mut mappings: Vec<Vec<char>> = vec![];
         let mut normalised_mappings: HashMap<char, char> = HashMap::new();
 
         s[1..(s.len() - 2)]
-            .replace(" ", "")
+            .replace(' ', "")
             .split(")(")
             .map(|s| s.chars().collect::<Vec<_>>())
             .for_each(|v| mappings.push(v));

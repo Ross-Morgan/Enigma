@@ -7,11 +7,11 @@ pub struct RotorStack<const N: usize> {
 }
 
 impl<const N: usize> RotorStack<N> {
-    pub fn from_preset(preset: [(&'static str, &'static str); N]) -> Self {
+    #[must_use] pub fn from_preset(preset: [(&'static str, &'static str); N]) -> Self {
         let mut rotors: Vec<Rotor> = vec![];
 
-        for (name, spec) in preset.into_iter() {
-            rotors.push(Rotor::from_preset(spec, Some(name)))
+        for (name, spec) in preset {
+            rotors.push(Rotor::from_preset(spec, Some(name)));
         }
 
         Self {
@@ -21,20 +21,38 @@ impl<const N: usize> RotorStack<N> {
 }
 
 
+impl Default for RotorStack<3> {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl RotorStack<3> {
-    pub fn new() -> Self {
+    #[must_use] pub fn new() -> Self {
         Self::from_preset(groups::COMMERCIAL)
     }
 }
 
+impl Default for RotorStack<5> {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl RotorStack<5> {
-    pub fn new() -> Self {
+    #[must_use] pub fn new() -> Self {
         Self::from_preset(groups::ROCKET)
     }
 }
 
+impl Default for RotorStack<10> {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl RotorStack<10> {
-    pub fn new() -> Self {
+    #[must_use] pub fn new() -> Self {
         Self::from_preset(groups::TECHNICAL)
     }
 }
@@ -45,7 +63,7 @@ impl<const N: usize> RotorStack<N> {
         // TODO Implement
         let mut plugged = c;
 
-        for rotor in self.rotors.iter_mut() {
+        for rotor in &mut self.rotors {
             plugged = rotor.plug(plugged);
 
             rotor.rotate();
@@ -54,7 +72,7 @@ impl<const N: usize> RotorStack<N> {
         plugged
     }
 
-    pub fn plug_backwards(&self, c: char) -> char {
+    #[must_use] pub fn plug_backwards(&self, c: char) -> char {
         // TODO Implement
         c
     }

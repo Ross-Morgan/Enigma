@@ -9,6 +9,12 @@ pub struct EngimaBuilder<const N: usize> {
     reflector: Option<Reflector>,
 }
 
+impl<const R: usize> Default for EngimaBuilder<R> {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl<const R: usize> EngimaBuilder<R> {
     pub fn new() -> Self {
         Self { plugboard: None, rotors: None, reflector: None }
@@ -53,11 +59,11 @@ pub struct EnigmaMachine<const R: usize = 3> {
 
 
 impl<const N: usize> EnigmaMachine<N> {
-    pub fn from_parts(plugboard: Plugboard, rotors: RotorStack<N>, reflector: Reflector) -> Self {
+    #[must_use] pub fn from_parts(plugboard: Plugboard, rotors: RotorStack<N>, reflector: Reflector) -> Self {
         Self { plugboard, rotor_stack: rotors, reflector }
     }
 
-    pub fn from_preset(preset: [(&'static str, &'static str); N]) -> Self {
+    #[must_use] pub fn from_preset(preset: [(&'static str, &'static str); N]) -> Self {
         let plugboard: Plugboard = Plugboard::new();
         let reflector: Reflector = Reflector::new();
         let rotors: RotorStack<N> = RotorStack::<N>::from_preset(preset);
@@ -65,7 +71,7 @@ impl<const N: usize> EnigmaMachine<N> {
         Self { plugboard, rotor_stack: rotors, reflector }
     }
 
-    pub fn build_with() -> EngimaBuilder<N> {
+    #[must_use] pub fn build_with() -> EngimaBuilder<N> {
         EngimaBuilder::new()
     }
 }
