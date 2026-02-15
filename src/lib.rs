@@ -1,81 +1,56 @@
 #![deny(clippy::missing_const_for_fn)]
 
-// pub mod machine;
+pub mod alphamap;
 
-// pub mod plugboard;
-// pub mod reflector;
-// pub mod rotors;
-// pub mod cycle_notation;
+pub mod machine;
+pub mod plug;
+pub mod plugboard;
+pub mod reflector;
+pub mod rotors;
 
-mod alphamap;
-
-pub trait Plug {
-    fn plug_forwards(&self, c: char) -> c; 
-    fn plug_backwards(&self, c: char) -> c; 
+fn copy_into_array<A, T>(slice: &[T]) -> A
+where
+    A: Default2 + AsMut<[T]>,
+    T: Copy,
+{
+    let mut a = A::default();
+    <A as AsMut<[T]>>::as_mut(&mut a).copy_from_slice(slice);
+    a
 }
 
-pub struct EnigmaMachine<const R: usize, const C: usize>(Plugboard<C>, RotorStack<R>, Reflector<R>);
-pub struct Plugboard<const C: usize>(AlphaMap<C>);
-pub struct Rotor<const C: usize>(AlphaMap<C>);
-pub struct RotorStack<const R: usize, const C: usize>([Rotor<C>; R]);
-pub struct Reflector<const C: usize>(AlphaMap<C, true>);
+// fn clone_into_array<A, T>(slice: &[T]) -> A
+// where
+//     A: Default2 + AsMut<[T]>,
+//     T: Clone,
+// {
+//     let mut a = A::default();
+//     <A as AsMut<[T]>>::as_mut(&mut a).clone_from_slice(slice);
+//     a
+// }
 
-struct AlphaMap<const N: usize>([char; N], [char; N]);
-
-impl<const N: usize> AlphaMap<N> {
-    fn new(from: [char; N], to: [char; N]) -> Self {
-        Self(from, to)
-    }
-
-    fn get_forwards(&self, c: char) -> char {
-        self.1[self.0.iter().position(|&&v| c == v).expect("char not in forwards mapping")]
-    }
-    
-    fn get_backwards(&self, c: char) -> char {
-        self.0[self.1.iter().position(|&&v| c == v).expect("char not in backwards mapping")]
-    }
+trait Default2 {
+    fn default() -> Self;
 }
 
-impl<const C: usize> Plug for Plugboard<C> {
-    fn plug_forwards(&self, c: char) -> char {
-        self.0.get_forwards(c)
-    }
-    
-    fn plug_backwards(&self, c: char) -> char {
-        self.0.get_backwards(c)
+impl<T: Default2, const N: usize> Default2 for [T; N] {
+    fn default() -> Self {
+        [(); N].map(|_| T::default())
     }
 }
 
-impl<const N: usize, const C: usize> Plug for RotorStack<N, C> {
-    fn plug_forwards(&self, c: char) -> char {
-        self.0
-            .iter()
-            .fold(c, |plugged, rotor| rotor.plug_forwards(plugged))
-        }
-        
-        fn plug_backwards(&self, c: char) -> char {
-            self.0
-                .iter()
-                .fold(c, |plugged, rotor| rotor.plug_forwards(plugged))
+impl Default2 for char {
+    #[inline]
+    fn default() -> Self {
+        '\0'
     }
 }
+pub mod prelude {
+    use super::*;
 
-impl<const C: usize> Plug for Rotor<C> {
-    fn plug_forwards(&self, c: char) -> char {
-        self.0.get_forwards(c)
-    }
-    
-    fn plug_backwards(&self, c: char) -> char {
-        self.0.get_backwards(c)
-    }
-}
-
-impl<const C: usize> Plug for Reflector<C> {
-    fn plug_forwards(&self, c: char) -> char {
-        self.0.get_forwards(c)
-    }
-    
-    fn plug_backwards(&self, c: char) -> char {
-        self.0.get_backwards(c)
-    }
+    pub use alphamap::{AlphaMap, AlphaMapBuilder};
+    pub use machine::EnigmaMachine;
+    pub use plug::{BidirectionalPlug, UnidirectionalPlug};
+    pub use plugboard::Plugboard;
+    pub use reflector::Reflector;
+    pub use rotors::{Rotor, RotorStack};
 }
